@@ -1,63 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+// src/components/SongList.js
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-const SongList = ({ denomination }) => {
-    const [songs, setSongs] = useState([]); // Initialize as an empty array
-    const [error, setError] = useState(null);
+function SongList() {
+  const { denomination } = useParams();
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchSongs = async () => {
-            const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/songs.json`;
-            const token = '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';
-            // console.log("token in list--->"+token);
+  useEffect(() => {
+    // Set loading to true when fetching starts
+    setLoading(true);
+    fetch(`https://raw.githubusercontent.com/johntomcy/faithverse/main/denominations/${denomination}/songs/songs.json`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSongs(data);
+        setLoading(false); // Set loading to false when data is received
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false); // Set loading to false on error
+      });
+  }, [denomination]);
 
-            try {
-                const response = await fetch(url, {
-                    headers: {
-                        Authorization: `token ${token}`,
-                    },
-                });
+  if (loading) return <div>Loading songs...</div>;
+  if (error) return <div>Error loading songs: {error}</div>;
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                const songsContent = atob(data.content); // Decode base64 content
-
-                let songsData;
-                try {
-                    songsData = JSON.parse(songsContent); // Parse JSON content
-                } catch (e) {
-                    throw new Error('Failed to parse songs JSON');
-                }
-
-                // Access the songs array inside the songs object
-                if (songsData && Array.isArray(songsData.songs)) {
-                    setSongs(songsData.songs); // Set the songs array
-                } else {
-                    throw new Error('Fetched data does not contain songs array');
-                }
-            } catch (error) {
-                setError('Error fetching songs: ' + error.message);
-            }
-        };
-
-        fetchSongs();
-    }, [denomination]);
-
-    return (
-        <div>
-            <h1>Song List</h1>
-            <ul>
-                {songs.map((song) => (
-                    <li key={song.id}>
-                        <Link to={`/songs/${denomination}/${song.id}`}>{song.title}</Link> {/* Link to song lyrics */}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+  return (
+    <div>
+      <h2>{denomination} Songs</h2>
+      <ul>
+        {songs.map((song) => (
+          <li key={song.id}>
+            <Link to={`/songs/${denomination}/${song.id}`}>{song.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default SongList;

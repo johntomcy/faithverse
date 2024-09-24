@@ -12,8 +12,8 @@ function App() {
       <div>
         <h1>FaithVerse</h1> {/* Add a simple header to test if it's rendering */}
         <Routes>
-          <Route path="/" element={<SongList denomination="catholic" />} />
-          <Route path="/songs/:denomination" element={<SongList denomination="catholic" />} />
+          <Route path="/" element={<SongList />} />
+          <Route path="/songs/:denomination" element={<SongList />} />
           <Route path="/songs/:denomination/:songId" element={<SongLyrics />} />
           <Route path="/prayers/:denomination" element={<PrayerList />} />
           <Route path="/prayers/:denomination/:prayerId" element={<PrayerDetails />} />
