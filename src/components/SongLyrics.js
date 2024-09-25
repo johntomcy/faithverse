@@ -11,9 +11,7 @@ const SongLyrics = () => {
     useEffect(() => {
         const fetchLyrics = async () => {
             const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/${songId}.json`;
-            // const token = process.env.REACT_APP_GITHUB_PAT;  
-            const token = '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';
-            // console.log("token--->"+token);
+            const token = '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'; // Replace with your actual PAT
 
             try {
                 const response = await fetch(url, {
