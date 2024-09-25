@@ -1,0 +1,21 @@
+{
+    "songs": [
+      {
+        "id": "amazing-grace",
+        "title": "Amazing Grace",
+        "composer": "John Newton",
+        "lyricist": "John Newton",
+        "language": "English",
+        "duration": "3:45"
+      },
+      {
+        "id": "blessed-assurance",
+        "title": "Blessed Assurance",
+        "composer": "Phoebe P. Knapp",
+        "lyricist": "Fanny J. Crosby",
+        "language": "English",
+        "duration": "4:10"
+      }
+    ]
+  }
+  
