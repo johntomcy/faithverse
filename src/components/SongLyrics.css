@@ -1,0 +1,5 @@
+.malayalam-text {
+    font-family: 'Noto Sans Malayalam', sans-serif; /* You can use any Malayalam-supporting font */
+}
+
+/* Ensure that you are importing this font in your index.html or through Google Fonts */
