@@ -1,0 +1,20 @@
+{
+    "id": "hail-mary",
+    "title": "Hail Mary",
+    "language": "English",
+    "prayer": {
+      "english": {
+        "para1": "Hail Mary, full of grace, the Lord is with thee...",
+        "para2": "Blessed art thou among women, and blessed is the fruit of thy womb, Jesus..."
+      },
+      "malayalam": {
+        "para1": "നിനക്ക് നന്മ നിറഞ്ഞവളേ, കര്‍ത്താവ് നിന്നോടൊപ്പമുണ്ട്...",
+        "para2": "സന്തോഷം നിറഞ്ഞവളേ, ഞങ്ങള്‍ നിന്നോടുള്ള പ്രാര്‍ത്ഥനയോടെ...."
+      },
+      "manglish": {
+        "para1": "Ninak nanma niranjavalae, Karthav ninnodoppamund...",
+        "para2": "Santhosham niranjavalae, njangl ninnodulla prarthanayode..."
+      }
+    }
+  }
+  

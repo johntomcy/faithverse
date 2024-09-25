@@ -1,0 +1,20 @@
+{
+    "id": "our-father",
+    "title": "Our Father",
+    "language": "English",
+    "prayer": {
+      "english": {
+        "para1": "Our Father, who art in heaven, hallowed be thy name...",
+        "para2": "Thy kingdom come, thy will be done, on earth as it is in heaven..."
+      },
+      "malayalam": {
+        "para1": "നമ്മുടെ പിതാവേ, നീ സ്വര്‍ഗ്ഗത്തില്‍ ആയിരിക്കുന്നു...",
+        "para2": "നിന്റെ രാജ്യവും വരട്ടെ, നിന്റെ ത്വേഷവും സുന്ദരമായിരിക്കും..."
+      },
+      "manglish": {
+        "para1": "Nammude pithave, nee swargathil aayirikkunnu...",
+        "para2": "Ninte raajyamum varatte, ninte thevashum sundaraayirikku..."
+      }
+    }
+  }
+  

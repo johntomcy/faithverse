@@ -1,0 +1,23 @@
+{
+    "id": "amazing-grace",
+    "title": "Amazing Grace",
+    "composer": "John Newton",
+    "lyricist": "John Newton",
+    "language": "English",
+    "duration": "3:45",
+    "lyrics": {
+      "english": {
+        "para1": "Amazing grace, how sweet the sound...",
+        "para2": "That saved a wretch like me..."
+      },
+      "malayalam": {
+        "para1": "അദ്ഭുതകൃപ...",
+        "para2": "എന്നെ രക്ഷിച്ചതിനു...."
+      },
+      "manglish": {
+        "para1": "Adbhutha kripa...",
+        "para2": "Enne rakshichathinu..."
+      }
+    }
+  }
+  
