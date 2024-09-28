@@ -1,26 +1,26 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SongList from './components/SongList';
-import SongLyrics from './components/SongLyrics';
-import PrayerList from './components/PrayerList';
-import PrayerDetails from './components/PrayerDetails';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage'; // Import HomePage
+import DenominationDetail from './components/DenominationDetail';
+import SongList from './components/SongList'; // Updated component import
+import PrayerList from './components/PrayerList'; // Updated import for PrayerList
+import SongLyrics from './components/SongLyrics'; 
+import PrayerDetails from './components/PrayerDetails'; 
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <h1>FaithVerse</h1> {/* Add a simple header to test if it's rendering */}
+const App = () => {
+    // Sample denominations list; replace with your actual list if available
+    const denominations = ['catholic', 'orthodox', 'protestant']; 
+
+    return (
         <Routes>
-          <Route path="/" element={<SongList denomination="catholic" />} />
-          <Route path="/songs/:denomination" element={<SongList denomination="catholic" />} />
-          <Route path="/songs/:denomination/:songId" element={<SongLyrics />} />
-          <Route path="/prayers/:denomination" element={<PrayerList />} />
-          <Route path="/prayers/:denomination/:prayerId" element={<PrayerDetails />} />
+            <Route path="/" element={<HomePage denominations={denominations} />} /> {/* Pass denominations to HomePage */}
+            <Route path="/:denomination" element={<DenominationDetail />} />
+            <Route path="/:denomination/songs" element={<SongList />} /> {/* Changed to SongList */}
+            <Route path="/:denomination/prayers" element={<PrayerList />} /> {/* Changed to PrayerList */}
+            <Route path="/:denomination/songs/:songId" element={<SongLyrics />} />
+            <Route path="/:denomination/prayers/:prayerId" element={<PrayerDetails />} />
         </Routes>
-      </div>
-    </Router>
-  );
-}
+    );
+};
 
 export default App;

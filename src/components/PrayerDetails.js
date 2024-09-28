@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function PrayerDetails() {
-  const { denomination, prayerId } = useParams();
-  const [prayer, setPrayer] = useState(null);
+const PrayerDetails = () => {
+    const { denomination, prayerId } = useParams();
+    const [prayer, setPrayer] = useState({});
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch(`https://raw.githubusercontent.com/johntomcy/faithverse/main/denominations/${denomination}/prayers/${prayerId}.json`)
-      .then((response) => response.json())
-      .then((data) => setPrayer(data));
-  }, [denomination, prayerId]);
+    useEffect(() => {
+        const fetchPrayer = async () => {
+            const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/prayers/${prayerId}.json`;
+            const token = process.env.REACT_APP_GITHUB_PAT; // Add your PAT here
 
-  if (!prayer) {
-    return <div>Loading prayer...</div>;
-  }
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        Authorization: `token ${token}`,
+                    },
+                });
 
-  return (
-    <div>
-      <h1>{prayer.title}</h1>
-      <div>
-        <h2>English</h2>
-        <p>{prayer.prayer.english.para1}</p>
-        <p>{prayer.prayer.english.para2}</p>
-        <h2>Malayalam</h2>
-        <p>{prayer.prayer.malayalam.para1}</p>
-        <p>{prayer.prayer.malayalam.para2}</p>
-        <h2>Manglish</h2>
-        <p>{prayer.prayer.manglish.para1}</p>
-        <p>{prayer.prayer.manglish.para2}</p>
-      </div>
-    </div>
-  );
-}
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                const prayerContent = atob(data.content);
+                const prayerData = JSON.parse(prayerContent);
+                setPrayer(prayerData); // Assuming prayerData has the relevant structure
+            } catch (error) {
+                setError('Error fetching prayer: ' + error.message);
+            }
+        };
+
+        fetchPrayer();
+    }, [denomination, prayerId]);
+
+    if (error) return <p>{error}</p>;
+    if (!prayer.title) return <p>Loading...</p>;
+
+    return (
+        <div>
+            <h1>{prayer.title}</h1>
+            <p>{prayer.content}</p> {/* Assuming prayer content is a simple text */}
+        </div>
+    );
+};
 
 export default PrayerDetails;

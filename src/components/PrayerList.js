@@ -1,31 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function PrayerList({ denomination }) {
-  const [prayers, setPrayers] = useState([]);
+const PrayersList = () => {
+    const { denomination } = useParams();
+    const [prayers, setPrayers] = useState([]);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch(`https://raw.githubusercontent.com/johntomcy/faithverse/main/denominations/${denomination}/prayers/prayers.json`)
-      .then((response) => response.json())
-      .then((data) => setPrayers(data.prayers));
-  }, [denomination]);
+    useEffect(() => {
+        const fetchPrayers = async () => {
+            const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/prayers/prayers.json`;
+            const token = process.env.REACT_APP_GITHUB_PAT; // Add your PAT here
 
-  if (!prayers.length) {
-    return <div>Loading prayers...</div>;
-  }
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        Authorization: `token ${token}`,
+                    },
+                });
 
-  return (
-    <div>
-      <h1>Prayers</h1>
-      <ul>
-        {prayers.map((prayer) => (
-          <li key={prayer.id}>
-            <Link to={`/prayers/${denomination}/${prayer.id}`}>{prayer.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-export default PrayerList;
+                const data = await response.json();
+                const prayersContent = atob(data.content);
+                const prayersData = JSON.parse(prayersContent);
+
+                if (prayersData && Array.isArray(prayersData.prayers)) {
+                    setPrayers(prayersData.prayers);
+                } else {
+                    throw new Error('No prayers found');
+                }
+            } catch (error) {
+                setError('Error fetching prayers: ' + error.message);
+            }
+        };
+
+        fetchPrayers();
+    }, [denomination]);
+
+    if (error) return <p>{error}</p>;
+    if (!prayers.length) return <p>Loading...</p>;
+
+    return (
+        <div>
+            <h1>Prayers List for {denomination.charAt(0).toUpperCase() + denomination.slice(1)}</h1>
+            <ul>
+                {prayers.map((prayer) => (
+                    <li key={prayer.id}>{prayer.title}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default PrayersList;

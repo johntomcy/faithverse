@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './SongLyrics.css'; // Import the CSS file for styling
 
 const SongLyrics = () => {
-    const { denomination, songId } = useParams();
+    const { denomination, songId } = useParams(); // Extract denomination and songId from URL
     const [lyrics, setLyrics] = useState(null);
-    const [selectedLanguage, setSelectedLanguage] = useState('manglish'); // Default to Manglish
     const [error, setError] = useState(null);
+    const [selectedLanguage, setSelectedLanguage] = useState('manglish'); // Default to Manglish
 
     useEffect(() => {
         const fetchLyrics = async () => {
             const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/${songId}.json`;
-            const token = process.env.GITHUB_PAT;
+            const token = process.env.REACT_APP_GITHUB_PAT;
 
             try {
                 const response = await fetch(url, {
@@ -25,10 +24,10 @@ const SongLyrics = () => {
                 }
 
                 const data = await response.json();
-                const lyricsContent = atob(data.content); // Decode base64 content
-                const parsedLyrics = JSON.parse(lyricsContent); // Parse the JSON
+                const lyricsContent = atob(data.content);
+                const lyricsData = JSON.parse(lyricsContent);
 
-                setLyrics(parsedLyrics); // Set the lyrics content
+                setLyrics(lyricsData);
             } catch (error) {
                 setError('Error fetching lyrics: ' + error.message);
             }
@@ -37,40 +36,34 @@ const SongLyrics = () => {
         fetchLyrics();
     }, [denomination, songId]);
 
+    if (error) return <p>{error}</p>;
+    if (!lyrics) return <p>Loading...</p>;
+
+    // Function to handle language change
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
     };
 
     return (
         <div>
-            {error && <p>{error}</p>}
-            {lyrics ? (
-                <>
-                    <h1>{lyrics.title}</h1>
-                    <div>
-                        <h2>Select Language:</h2>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <button onClick={() => handleLanguageChange('english')}>English</button>
-                            <button onClick={() => handleLanguageChange('malayalam')}>Malayalam</button>
-                            <button onClick={() => handleLanguageChange('manglish')}>Manglish</button>
-                        </div>
-                    </div>
-                    {lyrics.lyrics && lyrics.lyrics[selectedLanguage] ? (
-                        <div>
-                            <h2>{selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)} Lyrics:</h2>
-                            {Object.entries(lyrics.lyrics[selectedLanguage]).map(([key, value]) => (
-                                <p key={key} className={selectedLanguage === 'malayalam' ? 'malayalam-text' : ''}>
-                                    {value}
-                                </p>
-                            ))}
-                        </div>
-                    ) : (
-                        <p>No lyrics available for {selectedLanguage}.</p>
-                    )}
-                </>
-            ) : (
-                <p>Loading lyrics...</p>
-            )}
+            <h1>{lyrics.title}</h1>
+            <div style={{ marginBottom: '20px' }}>
+                {/* Language buttons */}
+                {Object.keys(lyrics.lyrics).map((language) => (
+                    <button 
+                        key={language} 
+                        onClick={() => handleLanguageChange(language)} 
+                        style={{ marginRight: '10px' }}
+                    >
+                        {language.charAt(0).toUpperCase() + language.slice(1)}
+                    </button>
+                ))}
+            </div>
+            <h2>{selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)} Lyrics:</h2>
+            {/* Render the lyrics based on the selected language */}
+            {Object.entries(lyrics.lyrics[selectedLanguage]).map(([key, value]) => (
+                <p key={key}>{value}</p>
+            ))}
         </div>
     );
 };

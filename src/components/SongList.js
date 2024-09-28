@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useParams, Link } from 'react-router-dom';
 
-const SongList = ({ denomination }) => {
-    const [songs, setSongs] = useState([]); // Initialize as an empty array
+const SongsList = () => {
+    const { denomination } = useParams();
+    const [songs, setSongs] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchSongs = async () => {
             const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/songs.json`;
-            const token = process.env.GITHUB_PAT;
+            const token = process.env.REACT_APP_GITHUB_PAT; // Add your PAT here
 
             try {
                 const response = await fetch(url, {
@@ -22,20 +23,13 @@ const SongList = ({ denomination }) => {
                 }
 
                 const data = await response.json();
-                const songsContent = atob(data.content); // Decode base64 content
+                const songsContent = atob(data.content);
+                const songsData = JSON.parse(songsContent);
 
-                let songsData;
-                try {
-                    songsData = JSON.parse(songsContent); // Parse JSON content
-                } catch (e) {
-                    throw new Error('Failed to parse songs JSON');
-                }
-
-                // Access the songs array inside the songs object
                 if (songsData && Array.isArray(songsData.songs)) {
-                    setSongs(songsData.songs); // Set the songs array
+                    setSongs(songsData.songs);
                 } else {
-                    throw new Error('Fetched data does not contain songs array');
+                    throw new Error('No songs found');
                 }
             } catch (error) {
                 setError('Error fetching songs: ' + error.message);
@@ -45,13 +39,16 @@ const SongList = ({ denomination }) => {
         fetchSongs();
     }, [denomination]);
 
+    if (error) return <p>{error}</p>;
+    if (!songs.length) return <p>Loading...</p>;
+
     return (
         <div>
-            <h1>Song List</h1>
+            <h1>Songs List for {denomination.charAt(0).toUpperCase() + denomination.slice(1)}</h1>
             <ul>
                 {songs.map((song) => (
                     <li key={song.id}>
-                        <Link to={`/songs/${denomination}/${song.id}`}>{song.title}</Link> {/* Link to song lyrics */}
+                        <Link to={`/${denomination}/songs/${song.id}`}>{song.title}</Link>
                     </li>
                 ))}
             </ul>
@@ -59,4 +56,4 @@ const SongList = ({ denomination }) => {
     );
 };
 
-export default SongList;
+export default SongsList;
