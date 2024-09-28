@@ -1,29 +1,20 @@
 {
     "songs": [
-      {
-        "id": "amazing-grace",
-        "title": "Amazing Grace",
-        "composer": "John Newton",
-        "lyricist": "John Newton",
-        "language": "English",
-        "duration": "3:45"
-      },
-      {
-        "id": "blessed-assurance",
-        "title": "Blessed Assurance",
-        "composer": "Phoebe P. Knapp",
-        "lyricist": "Fanny J. Crosby",
-        "language": "English",
-        "duration": "4:10"
-      },
-      {
-        "id": "ennu-kanum-yeshu-rajane",
-        "title": "Ennu Kanum Yeshu Rajane",
-        "composer": "Unknown",
-        "lyricist": "Unknown",
-        "language": "Malayalam",
-        "duration": "4:00"
-      }
+        {
+            "id": "ennu-kanum-yeshu-rajane",
+            "title": "Ennu Kanum Yeshu Rajane",
+            "composer": "Unknown",
+            "lyricist": "Unknown",
+            "language": "Malayalam",
+            "duration": "4:00"
+        },
+        {
+            "id": "ninakku-aayiram-kaalam",
+            "title": "Ninakku Aayiram Kaalam",
+            "composer": "Unknown",
+            "lyricist": "Unknown",
+            "language": "Malayalam",
+            "duration": "4:00"
+        }
     ]
-  }
-  
+}
