@@ -8,7 +8,7 @@ const SongList = ({ denomination }) => {
     useEffect(() => {
         const fetchSongs = async () => {
             const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/songs.json`;
-            const token = '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'; // Replace with your actual PAT
+            const token = process.env.GITHUB_PAT;
 
             try {
                 const response = await fetch(url, {
