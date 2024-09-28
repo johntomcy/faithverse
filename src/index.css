@@ -1,10 +1,7 @@
-/* Example styles in index.css */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    color: blue;
-  }
-  
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+nav {
+  transition: transform 0.3s ease-in-out;
+}

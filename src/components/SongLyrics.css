@@ -3,3 +3,18 @@
 }
 
 /* Ensure that you are importing this font in your index.html or through Google Fonts */
+.bg-primary {
+    background-color: #007bff; /* Adjust to your primary color */
+}
+
+.text-white {
+    color: white;
+}
+
+.bg-gray-300 {
+    background-color: #d1d5db; /* Light gray */
+}
+
+.text-black {
+    color: black;
+}
