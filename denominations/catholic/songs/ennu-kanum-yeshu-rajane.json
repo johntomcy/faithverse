@@ -4,9 +4,15 @@
     "composer": "Unknown",
     "lyricist": "Unknown",
     "language": "Malayalam",
-    "duration": "4:00",
+    "duration": "4:30",
     "lyrics": {
-      "malayalam": {
+      "english": {
+        "para1": "Aa-Aa-Aa-Aa- ennu kanum yeshu rajane\nkaalamai kaalamai parannu povan kalamai\nrajathirajan varunnu vegam priyare!",
+        "para2": "1 Kahalanadham kettidunna nalil\nHallelujah! geetham padidume annu njan-\n2 Ennini njan chernnidum ponnumokham kanuvan\nSobhayerum nattil njan poiduvan kalamai -",
+        "para3": "3 Lokathil njanoru nindithanenkilum\nMekhathil njanoru vathuvai vazhume-\n4 Yeshu rajan vannidum bhakthanmare cherkuvan\nSworgathi sworgangalil vasam cheivan kalamai-",
+        "para4": "5 Mulkirida dhariai kadannupoya priyane\nPon kirida dhariai annu njan kanume-"
+      },
+      "manglish": {
         "para1": "A_A_A_A_49u kazuM Eywurajen\nkalmay\\ kalmay\\ pR9uEpaka[ kalmay\\\nrajaXiraj[ vru9u EvgM `piyer‰",
         "para2": "! kahLnaxM Ek7ifu9 naLi}\nhEl|luy/a‰ gItM pafifuEm 19u qa[;_",
         "para3": "@ 49ini qa[ Ec{9ifuM epa9umuKM kazuva[\nEwaBEyRuM na7i} qa[ Epayifuva[ kalmay\\",
