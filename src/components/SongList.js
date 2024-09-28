@@ -9,7 +9,7 @@ const SongList = ({ denomination }) => {
         const fetchSongs = async () => {
             const url = `https://api.github.com/repos/johntomcy/faithverse/contents/denominations/${denomination}/songs/songs.json`;
             const token = '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';
-            console.log("token in list--->"+token);
+            // console.log("token in list--->"+token);
 
             try {
                 const response = await fetch(url, {
