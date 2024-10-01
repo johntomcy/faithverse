@@ -3,11 +3,14 @@
     "version": "1.0.0",
     "description": "A Christian app for songs and prayers based on denominations",
     "main": "src/index.js",
+    "homepage": "https://johntomcy.github.io/faithverse/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "react": "^18.2.0",
@@ -37,6 +40,7 @@
     "license": "ISC",
     "devDependencies": {
         "autoprefixer": "^10.4.20",
+        "gh-pages": "^6.1.1",
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.13"
     }
